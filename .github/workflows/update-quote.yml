@@ -1,0 +1,30 @@
+name: Update quote
+
+on:
+  schedule:
+    - cron: '8 10 * * *'  # Schedule the action to run daily
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build and Run Docker Image
+        run: |
+          docker build -t update-quote .
+          docker run -v $(pwd):/app update-quote
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "Yousef Sameh"
+          git config user.email "yousefsameh24@gmail.com"
+          git add .
+          git commit -m "Update quote"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
