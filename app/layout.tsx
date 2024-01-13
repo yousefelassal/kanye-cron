@@ -7,6 +7,10 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Kanye Cron',
   description: 'A daily cron job that refetch a new quote by kanye every morning',
+  metadataBase: new URL('https://kanye-cron.vercel.app'),
+  openGraph: {
+    images: '/opengraph-image.png'
+  },
 }
 
 export default function RootLayout({
